@@ -56,11 +56,10 @@ int create_messages() {
     return 2;
   }
 
-  /* Get path of this program */
-  const TCHAR *path = nssm_unquoted_imagepath();
+  const TCHAR *event_message_file = _T("%SystemRoot%\\System32\\EventCreate.exe");
 
   /* Try to register the module but don't worry so much on failure */
-  RegSetValueEx(key, _T("EventMessageFile"), 0, REG_SZ, (const unsigned char *) path, (unsigned long) (_tcslen(path) +  1) * sizeof(TCHAR));
+  RegSetValueEx(key, _T("EventMessageFile"), 0, REG_SZ, (const unsigned char *) event_message_file, (unsigned long) (_tcslen(event_message_file) +  1) * sizeof(TCHAR));
   unsigned long types = EVENTLOG_INFORMATION_TYPE | EVENTLOG_WARNING_TYPE | EVENTLOG_ERROR_TYPE;
   RegSetValueEx(key, _T("TypesSupported"), 0, REG_DWORD, (const unsigned char *) &types, sizeof(types));
 
